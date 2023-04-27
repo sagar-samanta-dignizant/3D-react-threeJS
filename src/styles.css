@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.MuiSlider-rail{
+    color: #5eead4;
+    opacity: 0.2;
+}
+.MuiSlider-colorPrimary,
+.MuiSlider-track,
+.MuiSlider-thumb {
+    color: #5eead4;
+}
+.MuiSlider-thumb:hover{
+    box-shadow: 0px 0px 0px 8px #5eead4;
+}
