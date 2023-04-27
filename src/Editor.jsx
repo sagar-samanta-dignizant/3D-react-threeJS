@@ -1,25 +1,22 @@
 import MenuBar from './MenuBar'
 import RenderModel from './RenderModel'
 import { useState } from 'react'
+import TextureMenu from './TextureMenu';
+import { MODELS, TEXTURE } from './utils/models';
 
 export default function Editor() {
-    const [model, setModel] = useState({
-        id: 1,
-        name: 'T-Shirt',
-        thumb: 'man_shirt_preview.png',
-        obj: 'man_shirt_3d_model.obj',
-        bgImg:'man_shirt_front.png'
-    });
-    const [scale, setScale] = useState(1);
+    const [model, setModel] = useState(MODELS[0]);
+    const [scale, setScale] = useState(0);
     const [rotate, setRotate] = useState(0);
-    const [hsl, setHsl] = useState({ hue: 50, saturation: 50, lightness: 50 });
+    const [hsl, setHsl] = useState({ hue: 0.1, saturation: 0.1, lightness: 0.5 });
+    const [texture, setTexture] = useState(TEXTURE[0]);
 
     const handleModelChange = (newModel) => {
         setModel(newModel);
     }
 
     const handleScaleChange = (event, newScale) => {
-        setScale(newScale);
+        setScale(newScale / 100);
     };
 
     const handleRotateChange = (newRotate) => {
@@ -27,11 +24,15 @@ export default function Editor() {
     };
 
     const handleHslChange = (key, newHsl) => {
-        setHsl(prevHsl => ({ ...prevHsl, [key]: newHsl }))
+        setHsl(prevHsl => ({ ...prevHsl, [key]: newHsl / 100 }))
+    };
+
+    const handleTextureChange = (newTexture) => {
+        setTexture(newTexture);
     };
 
     return (
-        <main className='flex  h-screen flex-wrap justify-stretch items-center '>
+        <main className='flex h-screen flex-wrap justify-stretch items-center relative'>
 
             <MenuBar
                 handleModelChange={handleModelChange}
@@ -44,8 +45,9 @@ export default function Editor() {
                 currentHsl={hsl}
             />
 
+            <RenderModel className='flex-grow h-full bg-[#F5F5F5]' model={model} scale={scale} rotation={rotate} hsl={hsl} texture={texture} />
 
-            <RenderModel className='flex-grow h-full bg-[#67626294]' model={model} scale={scale} rotate={rotate} hsl={hsl} />
+            <TextureMenu textures={TEXTURE} currentTexture={texture} handleTextureChange={handleTextureChange} />
         </main>
     )
 }

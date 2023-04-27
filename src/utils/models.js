@@ -1,35 +1,47 @@
 export const MODELS = [
-    {
-        id: 1,
-        name: 'T-Shirt',
-        thumb: 'man_shirt_preview.png',
-        obj: 'man_shirt_3d_model.obj',
-        bgImg:'man_shirt_front.png'
-    },
-    {
-        id: 2,
-        name: 'Scarf',
-        thumb: 'silk_scarf_preview.png',
-        obj: 'silk_scarf_3d_model.obj',
-        bgImg:'silk_scarf_front.png'
-    },
-];
+  {
+    id: 1,
+    name: 'Scarf',
+    thumb: 'silk_scarf_preview.png',
+    obj: 'silk_scarf_3d_model.obj',
+    bgImg: 'silk_scarf_front.png'
+  },
+  {
+    id: 2,
+    name: 'T-Shirt',
+    thumb: 'man_shirt_preview.png',
+    obj: 'man_shirt_3d_model.obj',
+    bgImg: 'man_shirt_front.png'
+  }
+]
 
 export const TEXTURE = [
-    {
-        id: 1,
-        file: '1_texture_original.jpg',
-    },
-    {
-        id: 2,
-        file: '1_texture_3d.jpg',
-    },
-    {
-        id: 3,
-        file: '2_texture_original.jpg',
-    },
-    {
-        id: 4,
-        file: '2_texture_3d.jpg',
-    },
-];
+  {
+    id: 0,
+    file: 'textures/uv_grid_opengl.jpg'
+  },
+  {
+    id: 1,
+    file: 'textures/1_texture_original.jpg'
+  },
+  {
+    id: 2,
+    file: 'textures/2_texture_original.jpg'
+  },
+  {
+    id: 3,
+    file: 'textures/texture_3.jpg'
+  },
+  {
+    id: 4,
+    file: 'textures/texture_4.jpg'
+  },
+  {
+    id: 5,
+    file: 'textures/texture_5.jpg'
+  },
+  {
+    id: 6,
+    file: 'textures/texture_6.jpg'
+  }
+]
