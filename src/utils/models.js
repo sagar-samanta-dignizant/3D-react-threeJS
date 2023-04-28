@@ -32,10 +32,7 @@ export const TEXTURE = [
     id: 3,
     file: 'textures/texture_3.jpg'
   },
-  {
-    id: 4,
-    file: 'textures/texture_4.jpg'
-  },
+  
   {
     id: 5,
     file: 'textures/texture_5.jpg'
@@ -43,5 +40,13 @@ export const TEXTURE = [
   {
     id: 6,
     file: 'textures/texture_6.jpg'
+  },
+  {
+    id: 7,
+    file: 'textures/texture_7.jpg'
+  },
+  {
+    id: 8,
+    file: 'textures/texture_8.jpg'
   }
 ]
