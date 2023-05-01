@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
-import { Canvas, useLoader, useThree } from '@react-three/fiber'
+import { Canvas, useLoader, useThree ,useUpdate } from '@react-three/fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { TextureLoader, MeshBasicMaterial, RepeatWrapping } from 'three'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, useHelper } from '@react-three/drei'
 import * as THREE from 'three'
-import { Color } from 'three'
+import { Color, PointLightHelper,TubeBufferGeometry } from 'three'
 
 function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
   const imgRef = useRef()
@@ -29,7 +29,7 @@ function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
     side: THREE.DoubleSide,
     transparent: true,
     alphaTest: 0.5,
-    depthWrite: false,
+    depthWrite: false
   })
 
   let lastX, lastY
@@ -51,9 +51,12 @@ function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
       lastY = null
     }
   }
+  const lightRef = useRef(null)
+  const shirtRef = useRef(null)
 
   return (
     <mesh
+      ref={shirtRef}
       geometry={obj.children[0].geometry}
       material={material}
       onPointerDown={(event) => {
@@ -74,17 +77,24 @@ function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
         lastX = null
         lastY = null
       }}
-    />
+    >
+      <meshStandardMaterial attach="material" map={material.map} color={material.color} transparent={material.transparent} side={material.side} alphaTest={material.alphaTest} depthWrite={material.depthWrite}/>
+      <pointLight position={[0, 0, 0.7]} intensity={0.5} />
+    </mesh>
   )
 }
 
-
 function ImagePlane({ model }) {
   const texture = useLoader(TextureLoader, model.bgImg)
+  const lightRef = useRef(null)
+  useHelper(lightRef, PointLightHelper, 1, 'red')
+
   return (
     <mesh position={[0, 0, 0]}>
-      <planeBufferGeometry attach="geometry" args={[2, 2]} />
-      <meshBasicMaterial attach="material" map={texture} />
+      <planeBufferGeometry attach="geometry" args={[2, 2]}  />
+      <meshStandardMaterial attach="material" map={texture}  />
+      {/* <ambientLight /> */}
+      {/* <pointLight ref={lightRef} position={[0, 0, 0.7]} intensity={0.2} /> */}
     </mesh>
   )
 }
@@ -92,6 +102,7 @@ function ImagePlane({ model }) {
 function RenderModel({ className, model, texture, scale, hsl, rotation }) {
   const canvasRef = useRef(null)
 
+  // useHelper(lightRef, PointLightHelper, 1, 'red')
   return (
     <div className={`${className}`}>
       <Canvas ref={canvasRef} camera={{ position: [0, 0, 6], fov: 23 }}>
