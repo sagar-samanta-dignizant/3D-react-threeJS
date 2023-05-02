@@ -19,7 +19,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
 
   texture.wrapS = texture.wrapT = RepeatWrapping
   texture.repeat.set(1 - scale, 1 - scale)
-  texture.offset.set(0.5, 0.5)
+  texture.offset.set(0, 0)
   texture.rotation = rotation
 
   const material = new MeshBasicMaterial({
@@ -67,7 +67,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
         if (event.deltaY !== 0) {
           const delta = event.deltaY > 0 ? -0.1 : 0.1
           texture.repeat.set(texture.repeat.x - delta, texture.repeat.y - delta)
-          texture.repeat.clampScalar(0.5, 3)
+          texture.repeat.clampScalar(0.1, 6)
           invalidate()
         }
       }}
