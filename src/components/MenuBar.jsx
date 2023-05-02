@@ -4,7 +4,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import Rotate90DegreesCcwIcon from '@mui/icons-material/Rotate90DegreesCcw';
 import TuneIcon from '@mui/icons-material/Tune';
 import { useState } from 'react';
-import { MODELS } from './utils/models';
+import { MODELS } from '../utils/models';
 
 const MenuBar = ({
     handleModelChange,

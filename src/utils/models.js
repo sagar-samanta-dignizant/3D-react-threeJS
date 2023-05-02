@@ -54,19 +54,19 @@ export const TEXTURE = [
     file: 'textures/texture_8.jpg'
   },
   {
-    id: 8,
+    id: 9,
     file: 'textures/black.png'
   },
   {
-    id: 8,
+    id: 10,
     file: 'textures/purple.png'
   },
   {
-    id: 8,
+    id: 11,
     file: 'textures/white.png'
   },
   {
-    id: 8,
+    id: 12,
     file: 'textures/red.png'
   }
 ]

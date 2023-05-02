@@ -2,7 +2,7 @@ import MenuBar from './MenuBar'
 import RenderModel from './RenderModel'
 import { useState } from 'react'
 import TextureMenu from './TextureMenu';
-import { MODELS, TEXTURE } from './utils/models';
+import { MODELS, TEXTURE } from '../utils/models';
 
 export default function Editor() {
     const [model, setModel] = useState(MODELS[0]);
