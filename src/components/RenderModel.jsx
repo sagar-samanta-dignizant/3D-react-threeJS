@@ -86,6 +86,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
 function ImagePlane({ model, position, blendMode,...rest }) {
   const texture = useLoader(TextureLoader, model)
   const lightRef = useRef(null)
+  // texture.repeat.set(1 ,1)
 
   return (
     <mesh position={position}>

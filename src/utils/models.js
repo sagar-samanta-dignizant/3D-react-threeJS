@@ -22,7 +22,7 @@ export const MODELS = [
 export const TEXTURE = [
   {
     id: 0,
-    file: 'textures/uv_grid_opengl.jpg'
+    file: 'textures/9.png'
   },
   {
     id: 1,
@@ -30,43 +30,43 @@ export const TEXTURE = [
   },
   {
     id: 2,
-    file: 'textures/2_texture_original.jpg'
-  },
-  {
-    id: 3,
-    file: 'textures/texture_3.jpg'
+    file: 'textures/4.png'
   },
   
   {
+    id: 3,
+    file: 'textures/5.png'
+  },
+  {
+    id: 4,
+    file: 'textures/6.png'
+  },
+  {
     id: 5,
-    file: 'textures/texture_5.jpg'
+    file: 'textures/7.png'
   },
   {
     id: 6,
-    file: 'textures/texture_6.jpg'
+    file: 'textures/uv_grid_opengl.jpg'
   },
   {
     id: 7,
-    file: 'textures/texture_7.jpg'
-  },
-  {
-    id: 8,
-    file: 'textures/texture_8.jpg'
-  },
-  {
-    id: 9,
     file: 'textures/black.png'
   },
   {
-    id: 10,
+    id: 8,
     file: 'textures/purple.png'
   },
   {
-    id: 11,
-    file: 'textures/white.png'
+    id: 9,
+    file: 'textures/2.png'
   },
   {
-    id: 12,
+    id: 10,
     file: 'textures/red.png'
+  },
+  {
+    id: 11,
+    file: 'textures/1.png'
   }
 ]
