@@ -8,7 +8,7 @@ export default function Editor() {
     const [model, setModel] = useState(MODELS[0]);
     const [scale, setScale] = useState(0);
     const [rotate, setRotate] = useState(0);
-    const [hsl, setHsl] = useState({ hue: 0.1, saturation: 0.1, lightness: 0.7 });
+    const [hsl, setHsl] = useState({ hue: 0.1, saturation: 0.1, lightness: 1 });
     const [texture, setTexture] = useState(TEXTURE[0]);
 
     const handleModelChange = (newModel) => {

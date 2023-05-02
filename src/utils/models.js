@@ -4,14 +4,18 @@ export const MODELS = [
     name: 'Scarf',
     thumb: 'silk_scarf_preview.png',
     obj: 'silk_scarf_3d_model.obj',
-    bgImg: 'silk_scarf_front.png'
+    front: 'silk_scarf_front.png',
+    overlay:"silk_scarf_overlay.png",
+    light:"silk_scarf_light.png"
   },
   {
     id: 2,
     name: 'T-Shirt',
     thumb: 'man_shirt_preview.png',
     obj: 'man_shirt_3d_model.obj',
-    bgImg: 'man_shirt_front.png'
+    front: 'man_shirt_front.png',
+    overlay:"man_shirt_overlay.png",
+    light:"man_shirt_light.png"
   }
 ]
 
@@ -48,5 +52,21 @@ export const TEXTURE = [
   {
     id: 8,
     file: 'textures/texture_8.jpg'
+  },
+  {
+    id: 8,
+    file: 'textures/black.png'
+  },
+  {
+    id: 8,
+    file: 'textures/purple.png'
+  },
+  {
+    id: 8,
+    file: 'textures/white.png'
+  },
+  {
+    id: 8,
+    file: 'textures/red.png'
   }
 ]

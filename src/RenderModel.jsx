@@ -1,13 +1,12 @@
 import React, { useRef } from 'react'
-import { Canvas, useLoader, useThree ,useUpdate } from '@react-three/fiber'
+import { Canvas, useLoader, useThree,  } from '@react-three/fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { TextureLoader, MeshBasicMaterial, RepeatWrapping } from 'three'
-import { OrbitControls, useHelper } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import { Color, PointLightHelper,TubeBufferGeometry } from 'three'
+import { Color } from 'three'
 
-function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
-  const imgRef = useRef()
+function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }) {
   const obj = useLoader(OBJLoader, model?.obj)
   const texture = useLoader(TextureLoader, file, (loader) => {
     loader.magFilter = THREE.LinearFilter
@@ -77,37 +76,39 @@ function ShirtModel({ texture: { file }, model, scale, hsl, rotation }) {
         lastX = null
         lastY = null
       }}
-    >
-      <meshStandardMaterial attach="material" map={material.map} color={material.color} transparent={material.transparent} side={material.side} alphaTest={material.alphaTest} depthWrite={material.depthWrite}/>
+      position={position}>
+      <meshStandardMaterial attach="material" map={material.map} color={material.color} transparent={material.transparent} side={material.side} alphaTest={material.alphaTest} depthWrite={material.depthWrite} />
       <pointLight position={[0, 0, 0.7]} intensity={0.5} />
     </mesh>
   )
 }
 
-function ImagePlane({ model }) {
-  const texture = useLoader(TextureLoader, model.bgImg)
+function ImagePlane({ model, position, blendMode,...rest }) {
+  const texture = useLoader(TextureLoader, model)
   const lightRef = useRef(null)
-  useHelper(lightRef, PointLightHelper, 1, 'red')
 
   return (
-    <mesh position={[0, 0, 0]}>
-      <planeBufferGeometry attach="geometry" args={[2, 2]}  />
-      <meshStandardMaterial attach="material" map={texture}  />
-      {/* <ambientLight /> */}
-      {/* <pointLight ref={lightRef} position={[0, 0, 0.7]} intensity={0.2} /> */}
+    <mesh position={position}>
+      <planeBufferGeometry attach="geometry" args={[2, 2]} />
+      <meshStandardMaterial attach="material" map={texture} blending={blendMode} transparent {...rest} />
+      {blendMode && (
+        <>
+          <ambientLight />
+          <pointLight ref={lightRef} position={[0, 0, 0]} intensity={6} />
+        </>
+      )}
     </mesh>
   )
 }
 
 function RenderModel({ className, model, texture, scale, hsl, rotation }) {
-  const canvasRef = useRef(null)
-
-  // useHelper(lightRef, PointLightHelper, 1, 'red')
   return (
     <div className={`${className}`}>
-      <Canvas ref={canvasRef} camera={{ position: [0, 0, 6], fov: 23 }}>
-        <ShirtModel model={model} texture={texture} position={[0, 0, 0]} scale={scale} hsl={hsl} rotation={rotation} />
-        <ImagePlane model={model} position={[0, 0, 0]} scale={[1, 1, 1]} />
+      <Canvas  camera={{ position: [0, 0, 6], fov: 23 }}>
+        <ClothModel model={model} texture={texture} position={[0, 0, 0]} scale={scale} hsl={hsl} rotation={rotation} />
+        <ImagePlane model={model.front} position={[0, 0, 0]} scale={[1, 1, 1]} />
+        <ImagePlane model={model.overlay} position={[0, 0, 0]} scale={[1, 1, 1]} blendMode={THREE.MultiplyBlending} />
+        <ImagePlane model={model.light} position={[0, 0, 0]} scale={[1, 1, 1]} blendSrc={THREE.OneFactor} blendDst={THREE.OneMinusSrcColorFactor} blendEquation={THREE.AddEquation} blending={THREE.CustomBlending} />
         <OrbitControls enableRotate={false} enableZoom={false} enablePan={false} minDistance={2} maxDistance={10} />
       </Canvas>
     </div>
