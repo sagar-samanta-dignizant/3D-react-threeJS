@@ -28,7 +28,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
     side: THREE.DoubleSide,
     transparent: true,
     alphaTest: 0.5,
-    depthWrite: false
+    depthWrite: false,
   })
 
   let lastX, lastY
@@ -65,7 +65,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
       onPointerMove={handlePointerMove}
       onWheel={(event) => {
         if (event.deltaY !== 0) {
-          const delta = event.deltaY > 0 ? 0.1 : -0.1
+          const delta = event.deltaY > 0 ? -0.1 : 0.1
           texture.repeat.set(texture.repeat.x - delta, texture.repeat.y - delta)
           texture.repeat.clampScalar(0.5, 3)
           invalidate()
@@ -83,7 +83,7 @@ function ClothModel({ texture: { file }, model, scale, hsl, rotation, position }
   )
 }
 
-function ImagePlane({ model, position, blendMode,...rest }) {
+function ImagePlane({ model, position,blendMode, applyBlendMode,...rest }) {
   const texture = useLoader(TextureLoader, model)
   const lightRef = useRef(null)
   // texture.repeat.set(1 ,1)
@@ -91,8 +91,8 @@ function ImagePlane({ model, position, blendMode,...rest }) {
   return (
     <mesh position={position}>
       <planeBufferGeometry attach="geometry" args={[2, 2]} />
-      <meshStandardMaterial attach="material" map={texture} blending={blendMode} transparent {...rest} />
-      {blendMode && (
+      <meshStandardMaterial attach="material" map={texture} blending={blendMode}  transparent {...rest} color={"white"} />
+      {applyBlendMode && (
         <>
           <ambientLight />
           <pointLight ref={lightRef} position={[0, 0, 0]} intensity={6} />
@@ -103,17 +103,21 @@ function ImagePlane({ model, position, blendMode,...rest }) {
 }
 
 function RenderModel({ className, model, texture, scale, hsl, rotation }) {
+  const canvasRef = useRef(null)
+  
   return (
     <div className={`${className}`}>
-      <Canvas  camera={{ position: [0, 0, 6], fov: 23 }}>
+      <Canvas ref={canvasRef} camera={{ position: [0, 0, 6], fov: 23 }}>
         <ClothModel model={model} texture={texture} position={[0, 0, 0]} scale={scale} hsl={hsl} rotation={rotation} />
-        <ImagePlane model={model.front} position={[0, 0, 0]} scale={[1, 1, 1]} />
-        <ImagePlane model={model.overlay} position={[0, 0, 0]} scale={[1, 1, 1]} blendMode={THREE.MultiplyBlending} />
-        <ImagePlane model={model.light} position={[0, 0, 0]} scale={[1, 1, 1]} blendSrc={THREE.OneFactor} blendDst={THREE.OneMinusSrcColorFactor} blendEquation={THREE.AddEquation} blending={THREE.CustomBlending} />
-        <OrbitControls enableRotate={false} enableZoom={false} enablePan={false} minDistance={2} maxDistance={10} />
+        <ImagePlane model={model.front} position={[0, 0, 0]} scale={[1, 1, 1]} applyBlendMode={false} />
+        <ImagePlane model={model.overlay} position={[0, 0, 0]} scale={[1, 1, 1]} blendMode={THREE.MultiplyBlending} applyBlendMode={false} />
+        <ImagePlane model={model.light} position={[0, 0, 0]} scale={[1, 1, 1]} applyBlendMode={true} blendSrc={THREE.OneFactor} blendDst={THREE.OneMinusSrcColorFactor} blendEquation={THREE.AddEquation} blending={THREE.CustomBlending} />
+        <OrbitControls enableRotate={false} enableZoom={false} enablePan={false}  minDistance={2} maxDistance={10} />
+        
       </Canvas>
     </div>
   )
 }
+
 
 export default RenderModel

@@ -45,7 +45,7 @@ export default function Editor() {
                 currentHsl={hsl}
             />
 
-            <RenderModel className='flex-grow h-full bg-[#F5F5F5]' model={model} scale={scale} rotation={rotate} hsl={hsl} texture={texture} />
+            <RenderModel className='flex-grow h-full ' model={model} scale={scale} rotation={rotate} hsl={hsl} texture={texture} />
 
             <TextureMenu textures={TEXTURE} currentTexture={texture} handleTextureChange={handleTextureChange} />
         </main>
